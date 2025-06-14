@@ -12,6 +12,7 @@ import {
   closestCorners,
   DragOverEvent,
 } from '@dnd-kit/core'
+import { arrayMove } from '@dnd-kit/sortable'
 import { LeadStatus, Lead } from '@/types'
 import { useLeads } from '@/store/useLeads'
 import Column from './Column'
@@ -30,7 +31,7 @@ const columns: { id: LeadStatus; title: string }[] = [
 ]
 
 export default function Board({ onEditLead }: BoardProps) {
-  const { leads, getLeadsByStatus, moveLead, loadLeads } = useLeads()
+  const { leads, getLeadsByStatus, moveLead, reorderLeads, loadLeads } = useLeads()
   const [activeId, setActiveId] = useState<string | null>(null)
   const [activeLead, setActiveLead] = useState<Lead | null>(null)
   const [overId, setOverId] = useState<string | null>(null)
@@ -77,22 +78,42 @@ export default function Board({ onEditLead }: BoardProps) {
       return
     }
     
-    // Determine the target status
+    // Check if dropped over another lead (intra-column sorting)
+    const targetLead = leads.find(l => l.id === over.id)
+    if (targetLead && targetLead.status === currentLead.status) {
+      // Same column reordering
+      const columnLeads = getLeadsByStatus(currentLead.status)
+      const oldIndex = columnLeads.findIndex(lead => lead.id === leadId)
+      const newIndex = columnLeads.findIndex(lead => lead.id === over.id)
+      
+      if (oldIndex !== newIndex) {
+        const reorderedColumnLeads = arrayMove(columnLeads, oldIndex, newIndex)
+        
+        // Update the full leads array with the new order for this column
+        const otherLeads = leads.filter(lead => lead.status !== currentLead.status)
+        const newLeadsOrder = [
+          ...otherLeads,
+          ...reorderedColumnLeads
+        ]
+        
+        reorderLeads(newLeadsOrder.map(lead => lead.id))
+      }
+      return
+    }
+    
+    // Determine the target status for cross-column moves
     let newStatus: LeadStatus
     
     // If dropped over a column, use that column's status
     if (columns.some(col => col.id === over.id)) {
       newStatus = over.id as LeadStatus
     } 
-    // If dropped over another lead, find that lead's status/column
-    else {
-      const targetLead = leads.find(l => l.id === over.id)
-      if (targetLead) {
-        newStatus = targetLead.status
-      } else {
-        // Fallback: no valid drop target
-        return
-      }
+    // If dropped over another lead in a different column
+    else if (targetLead) {
+      newStatus = targetLead.status
+    } else {
+      // Fallback: no valid drop target
+      return
     }
     
     // Only move if the status is different

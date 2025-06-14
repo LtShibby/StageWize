@@ -161,7 +161,7 @@ export default function Home() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-blue-900 to-yellow-900">
+      <section className="py-20 bg-gradient-to-r from-[#0f172a] via-[#0a0e1a]/90 to-[#070c13]/95">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <h2 className="text-4xl lg:text-5xl font-anton mb-6">
             Ready to Close More Deals?

@@ -17,6 +17,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'New',
     createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
     updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+    statusChangedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day in New
   },
   {
     id: 'demo-lead-new-2',
@@ -29,6 +30,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'New',
     createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours ago
     updatedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+    statusChangedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours in New
   },
   {
     id: 'demo-lead-new-3',
@@ -41,6 +43,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'New',
     createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
     updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+    statusChangedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours in New
   },
 
   // Contacted (2 leads)
@@ -55,6 +58,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Contacted',
     createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
     updatedAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(), // 12 hours ago
+    statusChangedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days in Contacted
   },
   {
     id: 'demo-lead-contacted-2',
@@ -67,6 +71,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Contacted',
     createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
     updatedAt: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(), // 18 hours ago
+    statusChangedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), // 4 days in Contacted
   },
 
   // Follow-Up (4 leads - most active stage)
@@ -81,6 +86,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Follow-Up',
     createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
     updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
+    statusChangedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days in Follow-Up
   },
   {
     id: 'demo-lead-followup-2',
@@ -93,6 +99,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Follow-Up',
     createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(), // 12 days ago
     updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
+    statusChangedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), // 8 days in Follow-Up
   },
   {
     id: 'demo-lead-followup-3',
@@ -105,6 +112,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Follow-Up',
     createdAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(), // 9 days ago
     updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+    statusChangedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days in Follow-Up
   },
   {
     id: 'demo-lead-followup-4',
@@ -117,6 +125,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Follow-Up',
     createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(), // 15 days ago
     updatedAt: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(), // 4 hours ago
+    statusChangedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days in Follow-Up
   },
 
   // Won (2 leads)
@@ -131,6 +140,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Won',
     createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), // 2 weeks ago
     updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+    statusChangedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day in Won
   },
   {
     id: 'demo-lead-won-2',
@@ -143,6 +153,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Won',
     createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(), // 3 weeks ago
     updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
+    statusChangedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days in Won
   },
 
   // Lost (1 lead)
@@ -157,6 +168,7 @@ const getSampleDemoLeads = (): Lead[] => [
     status: 'Lost',
     createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
     updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+    statusChangedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days in Lost
   },
 ]
 
@@ -168,10 +180,11 @@ interface LeadsStore {
   
   // Actions
   loadLeads: () => void
-  addLead: (leadData: Omit<Lead, 'id' | 'createdAt' | 'updatedAt'>) => void
+  addLead: (leadData: Omit<Lead, 'id' | 'createdAt' | 'updatedAt' | 'statusChangedAt'>) => void
   updateLead: (id: string, updates: Partial<Lead>) => void
   deleteLead: (id: string) => void
   moveLead: (id: string, newStatus: LeadStatus) => void
+  reorderLeads: (leadIds: string[]) => void
   getLeadsByStatus: (status: LeadStatus) => Lead[]
   canAddLead: () => boolean
   canEditLead: (id: string) => boolean
@@ -259,6 +272,7 @@ export const useLeads = create<LeadsStore>((set, get) => ({
       id: generateLeadId(),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
+      statusChangedAt: new Date().toISOString(),
     }
     
     const updatedLeads = [...leads, newLead]
@@ -343,7 +357,12 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     
     const updatedLeads = leads.map(lead =>
       lead.id === id
-        ? { ...lead, status: newStatus, updatedAt: new Date().toISOString() }
+        ? { 
+            ...lead, 
+            status: newStatus, 
+            updatedAt: new Date().toISOString(),
+            statusChangedAt: lead.status !== newStatus ? new Date().toISOString() : lead.statusChangedAt
+          }
         : lead
     )
     
@@ -356,6 +375,28 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     
     const isDemoLead = id.startsWith('demo-lead-')
     toast.success(`"${lead.name}" moved to ${newStatus}${isDemoMode ? ' (Demo)' : ''}${isDemoLead ? ' - Try the others!' : ''}`)
+  },
+  
+  reorderLeads: (leadIds) => {
+    const { leads, isDemoMode } = get()
+    
+    // Create a map for faster lookup
+    const leadMap = new Map(leads.map(lead => [lead.id, lead]))
+    
+    // Reorder leads based on the new order, filtering out any undefined values
+    const reorderedLeads = leadIds.map(id => leadMap.get(id)).filter((lead): lead is Lead => lead !== undefined)
+    
+    // Add any leads that weren't in the reorder list (shouldn't happen, but safety check)
+    const reorderedIds = new Set(leadIds)
+    const remainingLeads = leads.filter(lead => !reorderedIds.has(lead.id))
+    
+    const updatedLeads = [...reorderedLeads, ...remainingLeads]
+    set({ leads: updatedLeads })
+    
+    // In demo mode, persist to localStorage
+    if (isDemoMode) {
+      saveLeadsToStorage(updatedLeads)
+    }
   },
   
   getLeadsByStatus: (status) => {

@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
-import { Edit, Trash2, Mail, Phone, Building, Lock } from 'lucide-react'
+import { Edit, Trash2, Mail, Phone, Building, Lock, Clock } from 'lucide-react'
 import { Lead } from '@/types'
 import { useLeads } from '@/store/useLeads'
 
@@ -20,11 +20,28 @@ const statusColors: Record<string, string> = {
   'Lost': 'border-l-red-500',
 }
 
+// Calculate days in current status
+const getDaysInStatus = (statusChangedAt: string): number => {
+  const statusDate = new Date(statusChangedAt)
+  const now = new Date()
+  const diffTime = Math.abs(now.getTime() - statusDate.getTime())
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+  return diffDays
+}
+
+// Format days for display
+const formatDaysInStatus = (days: number): string => {
+  if (days === 0) return 'Today'
+  if (days === 1) return '1 day'
+  return `${days} days`
+}
+
 export default function LeadCard({ lead, onEdit }: LeadCardProps) {
   const { deleteLead, canEditLead } = useLeads()
   const [showActions, setShowActions] = useState(false)
   const isEditable = canEditLead(lead.id)
   const isDemoLead = lead.id.startsWith('demo-lead-')
+  const daysInStatus = getDaysInStatus(lead.statusChangedAt)
   
   const {
     attributes,
@@ -112,6 +129,12 @@ export default function LeadCard({ lead, onEdit }: LeadCardProps) {
             {isEditable ? <Trash2 size={14} /> : <Lock size={14} />}
           </button>
         </div>
+      </div>
+      
+      {/* Days in Status Indicator */}
+      <div className="flex items-center text-yellow-400 text-xs mb-2">
+        <Clock size={12} className="mr-1" />
+        <span>{formatDaysInStatus(daysInStatus)} in {lead.status}</span>
       </div>
       
       {lead.company && (

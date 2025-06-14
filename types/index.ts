@@ -11,6 +11,7 @@ export interface Lead {
   status: LeadStatus
   createdAt: string
   updatedAt: string
+  statusChangedAt: string
 }
 
 export interface Column {
