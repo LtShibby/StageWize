@@ -12,14 +12,14 @@ import { useLeads } from '@/store/useLeads'
 import { Lead } from '@/types'
 
 export default function Demo() {
-  const { clearDemoData, canAddLead } = useLeads()
+  const { loadLeads, canAddLead } = useLeads()
   const [isFormOpen, setIsFormOpen] = useState(false)
   const [editingLead, setEditingLead] = useState<Lead | undefined>(undefined)
 
   useEffect(() => {
-    // Clear existing data and load demo data on page load
-    clearDemoData()
-  }, [clearDemoData])
+    // Load leads on page mount (will load existing data or fresh demo data)
+    loadLeads()
+  }, [loadLeads])
 
   const handleAddLead = () => {
     if (canAddLead()) {

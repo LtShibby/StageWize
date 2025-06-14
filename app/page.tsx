@@ -11,7 +11,7 @@ export default function Home() {
       
       {/* Hero Section */}
       <section className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 to-yellow-900/20"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0f172a] via-[#0a0e1a]/90 to-[#070c13]/95"></div>
         <div className="relative max-w-7xl mx-auto px-4 py-20 lg:py-32">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left side - Text content */}

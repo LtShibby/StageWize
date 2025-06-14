@@ -3,10 +3,11 @@ import { Lead, LeadStatus } from '@/types'
 import { getLeadsFromStorage, saveLeadsToStorage, generateLeadId } from '@/lib/leads'
 import toast from 'react-hot-toast'
 
-// Sample demo lead data for all stages
+// Sample demo lead data for all stages - more realistic distribution
 const getSampleDemoLeads = (): Lead[] => [
+  // New Leads (3 leads)
   {
-    id: 'demo-lead-new',
+    id: 'demo-lead-new-1',
     name: 'Alex Rodriguez',
     email: 'alex.r@innovate.com',
     phone: '+1 (555) 987-6543',
@@ -18,7 +19,33 @@ const getSampleDemoLeads = (): Lead[] => [
     updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
   },
   {
-    id: 'demo-lead-contacted',
+    id: 'demo-lead-new-2',
+    name: 'Jennifer Walsh',
+    email: 'j.walsh@creativeco.com',
+    phone: '+1 (555) 234-5678',
+    company: 'Creative Co.',
+    leadSource: 'Website',
+    notes: 'Downloaded our pricing guide. Small design agency looking for client management solution.',
+    status: 'New',
+    createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours ago
+    updatedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'demo-lead-new-3',
+    name: 'Robert Martinez',
+    email: 'r.martinez@techstart.io',
+    phone: '+1 (555) 345-6789',
+    company: 'TechStart',
+    leadSource: 'Referral',
+    notes: 'Referred by existing customer. Early-stage startup, budget-conscious but interested.',
+    status: 'New',
+    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
+    updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+  },
+
+  // Contacted (2 leads)
+  {
+    id: 'demo-lead-contacted-1',
     name: 'Sarah Johnson',
     email: 'sarah.j@techcorp.com',
     phone: '+1 (555) 123-4567',
@@ -30,7 +57,21 @@ const getSampleDemoLeads = (): Lead[] => [
     updatedAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(), // 12 hours ago
   },
   {
-    id: 'demo-lead-followup',
+    id: 'demo-lead-contacted-2',
+    name: 'Mark Stevens',
+    email: 'm.stevens@growthagency.com',
+    phone: '+1 (555) 456-7890',
+    company: 'Growth Agency',
+    leadSource: 'Cold Call',
+    notes: 'Positive initial conversation. Wants to see demo next Tuesday. Team of 8 people.',
+    status: 'Contacted',
+    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
+    updatedAt: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(), // 18 hours ago
+  },
+
+  // Follow-Up (4 leads - most active stage)
+  {
+    id: 'demo-lead-followup-1',
     name: 'Michael Chen',
     email: 'm.chen@startup.io',
     phone: '+1 (555) 555-0123',
@@ -42,7 +83,45 @@ const getSampleDemoLeads = (): Lead[] => [
     updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
   },
   {
-    id: 'demo-lead-won',
+    id: 'demo-lead-followup-2',
+    name: 'Lisa Park',
+    email: 'lisa.p@consultingfirm.com',
+    phone: '+1 (555) 678-9012',
+    company: 'Park Consulting',
+    leadSource: 'Trade Show',
+    notes: 'Demo completed. Comparing with 2 other solutions. Decision expected by end of month.',
+    status: 'Follow-Up',
+    createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(), // 12 days ago
+    updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
+  },
+  {
+    id: 'demo-lead-followup-3',
+    name: 'James Wilson',
+    email: 'j.wilson@salesteam.com',
+    phone: '+1 (555) 789-0123',
+    company: 'SalesTeam Pro',
+    leadSource: 'Website',
+    notes: 'Requested custom pricing for 15-person team. Sent proposal yesterday. Very interested.',
+    status: 'Follow-Up',
+    createdAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(), // 9 days ago
+    updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
+  },
+  {
+    id: 'demo-lead-followup-4',
+    name: 'Amanda Foster',
+    email: 'a.foster@digitalmarketing.com',
+    phone: '+1 (555) 890-1234',
+    company: 'Digital Marketing Plus',
+    leadSource: 'Social Media',
+    notes: 'Trial user for 2 weeks. Loves the interface. Discussing team plan upgrade.',
+    status: 'Follow-Up',
+    createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(), // 15 days ago
+    updatedAt: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(), // 4 hours ago
+  },
+
+  // Won (2 leads)
+  {
+    id: 'demo-lead-won-1',
     name: 'Emma Thompson',
     email: 'emma.t@globaldyne.com',
     phone: '+1 (555) 777-8888',
@@ -54,7 +133,21 @@ const getSampleDemoLeads = (): Lead[] => [
     updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
   },
   {
-    id: 'demo-lead-lost',
+    id: 'demo-lead-won-2',
+    name: 'Carlos Rodriguez',
+    email: 'c.rodriguez@successagency.com',
+    phone: '+1 (555) 111-2222',
+    company: 'Success Agency',
+    leadSource: 'Referral',
+    notes: 'Closed! Annual subscription for team of 12. Very happy with onboarding process.',
+    status: 'Won',
+    createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(), // 3 weeks ago
+    updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
+  },
+
+  // Lost (1 lead)
+  {
+    id: 'demo-lead-lost-1',
     name: 'David Kim',
     email: 'david.k@budget.com',
     phone: '+1 (555) 444-3333',
@@ -82,7 +175,7 @@ interface LeadsStore {
   getLeadsByStatus: (status: LeadStatus) => Lead[]
   canAddLead: () => boolean
   canEditLead: (id: string) => boolean
-  clearDemoData: () => void
+  resetDemoData: () => void
 }
 
 export const useLeads = create<LeadsStore>((set, get) => ({
@@ -94,11 +187,19 @@ export const useLeads = create<LeadsStore>((set, get) => ({
   loadLeads: () => {
     set({ isLoading: true })
     try {
-      // In demo mode, always start with sample data
+      // In demo mode, check if we have existing data first
       if (get().isDemoMode) {
-        localStorage.removeItem('stagewize-leads')
-        const sampleLeads = getSampleDemoLeads()
-        set({ leads: sampleLeads, isLoading: false })
+        const existingLeads = getLeadsFromStorage()
+        
+        // If no existing data or only demo data, load fresh demo data
+        if (existingLeads.length === 0 || existingLeads.every(lead => lead.id.startsWith('demo-lead-'))) {
+          const sampleLeads = getSampleDemoLeads()
+          set({ leads: sampleLeads, isLoading: false })
+          saveLeadsToStorage(sampleLeads) // Persist demo data
+        } else {
+          // Load existing data (mix of demo + user leads)
+          set({ leads: existingLeads, isLoading: false })
+        }
         
         // Show demo notification only once
         if (!get().hasShownDemoNotification) {
@@ -163,8 +264,8 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     const updatedLeads = [...leads, newLead]
     set({ leads: updatedLeads })
     
-    // In demo mode, don't persist to localStorage
-    if (!isDemoMode) {
+    // In demo mode, persist to localStorage
+    if (isDemoMode) {
       saveLeadsToStorage(updatedLeads)
     }
     
@@ -203,8 +304,8 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     
     set({ leads: updatedLeads })
     
-    // In demo mode, don't persist to localStorage
-    if (!isDemoMode) {
+    // In demo mode, persist to localStorage
+    if (isDemoMode) {
       saveLeadsToStorage(updatedLeads)
     }
     
@@ -216,7 +317,7 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     
     // Check if this lead can be deleted
     if (!canEditLead(id)) {
-      toast.error('🎭 Demo leads cannot be deleted! They reset on page refresh.', {
+      toast.error('🎭 Demo leads cannot be deleted! They persist between sessions.', {
         duration: 4000,
       })
       return
@@ -227,8 +328,8 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     
     set({ leads: updatedLeads })
     
-    // In demo mode, don't persist to localStorage  
-    if (!isDemoMode) {
+    // In demo mode, persist to localStorage  
+    if (isDemoMode) {
       saveLeadsToStorage(updatedLeads)
     }
     
@@ -248,8 +349,8 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     
     set({ leads: updatedLeads })
     
-    // In demo mode, don't persist to localStorage
-    if (!isDemoMode) {
+    // In demo mode, persist to localStorage
+    if (isDemoMode) {
       saveLeadsToStorage(updatedLeads)
     }
     
@@ -261,9 +362,10 @@ export const useLeads = create<LeadsStore>((set, get) => ({
     return get().leads.filter(lead => lead.status === status)
   },
   
-  clearDemoData: () => {
-    localStorage.removeItem('stagewize-leads')
-    set({ leads: [], hasShownDemoNotification: false })
-    toast('Demo data cleared', { icon: '🗑️' })
+  resetDemoData: () => {
+    const sampleLeads = getSampleDemoLeads()
+    set({ leads: sampleLeads, hasShownDemoNotification: false })
+    saveLeadsToStorage(sampleLeads)
+    toast('Demo data reset to defaults', { icon: '🔄' })
   },
 })) 
