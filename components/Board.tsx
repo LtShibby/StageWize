@@ -9,6 +9,8 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  closestCorners,
+  DragOverEvent,
 } from '@dnd-kit/core'
 import { LeadStatus, Lead } from '@/types'
 import { useLeads } from '@/store/useLeads'
@@ -31,6 +33,7 @@ export default function Board({ onEditLead }: BoardProps) {
   const { leads, getLeadsByStatus, moveLead, loadLeads } = useLeads()
   const [activeId, setActiveId] = useState<string | null>(null)
   const [activeLead, setActiveLead] = useState<Lead | null>(null)
+  const [overId, setOverId] = useState<string | null>(null)
   
   const sensors = useSensors(
     useSensor(PointerSensor, {
@@ -51,32 +54,59 @@ export default function Board({ onEditLead }: BoardProps) {
     setActiveLead(lead || null)
   }
   
+  const handleDragOver = (event: DragOverEvent) => {
+    const { over } = event
+    setOverId(over?.id as string || null)
+  }
+  
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event
     
+    setActiveId(null)
+    setActiveLead(null)
+    setOverId(null)
+    
     if (!over) {
-      setActiveId(null)
-      setActiveLead(null)
       return
     }
     
     const leadId = active.id as string
-    const newStatus = over.id as LeadStatus
-    
-    // Only move if the status is different
     const currentLead = leads.find(l => l.id === leadId)
-    if (currentLead && currentLead.status !== newStatus) {
-      moveLead(leadId, newStatus)
+    
+    if (!currentLead) {
+      return
     }
     
-    setActiveId(null)
-    setActiveLead(null)
+    // Determine the target status
+    let newStatus: LeadStatus
+    
+    // If dropped over a column, use that column's status
+    if (columns.some(col => col.id === over.id)) {
+      newStatus = over.id as LeadStatus
+    } 
+    // If dropped over another lead, find that lead's status/column
+    else {
+      const targetLead = leads.find(l => l.id === over.id)
+      if (targetLead) {
+        newStatus = targetLead.status
+      } else {
+        // Fallback: no valid drop target
+        return
+      }
+    }
+    
+    // Only move if the status is different
+    if (currentLead.status !== newStatus) {
+      moveLead(leadId, newStatus)
+    }
   }
   
   return (
     <DndContext
       sensors={sensors}
+      collisionDetection={closestCorners}
       onDragStart={handleDragStart}
+      onDragOver={handleDragOver}
       onDragEnd={handleDragEnd}
     >
       <div className="flex space-x-6 overflow-x-auto pb-6">
@@ -87,6 +117,7 @@ export default function Board({ onEditLead }: BoardProps) {
             title={column.title}
             leads={getLeadsByStatus(column.id)}
             onEditLead={onEditLead}
+            isOver={overId === column.id}
           />
         ))}
       </div>

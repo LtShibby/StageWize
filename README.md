@@ -15,6 +15,13 @@
 - **CSV Export**: Export complete lead database to CSV format
 - **Real-time Updates**: Instant UI updates with toast notifications
 
+### 🎭 Interactive Demo Mode
+- **Sample Leads**: Pre-loaded with realistic leads across all pipeline stages
+- **Drag & Drop**: Move demo leads between stages to experience the workflow
+- **Limited Creation**: Add 1 personal lead to test full functionality
+- **Visual Feedback**: Demo leads clearly marked and non-editable
+- **Data Resets**: Fresh demo experience on every page refresh
+
 ### 🎨 Design & UX
 - **StageWize Branding**: Dark theme with electric blue & yellow accents
 - **Responsive Design**: Mobile-first with horizontal scroll on small screens
@@ -73,6 +80,7 @@ Open [http://localhost:3000](http://localhost:3000) to see StageWize in action!
   LeadForm.tsx       # Add/edit lead modal form
   Header.tsx         # App header with branding
   Modal.tsx          # Reusable modal component
+  DemoBanner.tsx     # Demo mode notification banner
 /lib
   leads.ts           # localStorage utilities
 /store
@@ -89,6 +97,21 @@ Open [http://localhost:3000](http://localhost:3000) to see StageWize in action!
 4. **Won** - Successfully closed deals
 5. **Lost** - Opportunities that didn't convert
 
+## 🎭 Demo Experience
+
+### Pre-loaded Sample Leads
+- **Alex Rodriguez** (New) - Social media lead interested in automation
+- **Sarah Johnson** (Contacted) - Enterprise prospect, follow-up scheduled
+- **Michael Chen** (Follow-Up) - Proposal sent, awaiting CEO approval
+- **Emma Thompson** (Won) - Contract signed, 12-month premium package
+- **David Kim** (Lost) - Went with competitor, future opportunity
+
+### Interactive Features
+- **Drag & Drop**: Move any lead between pipeline stages
+- **Visual Feedback**: Smooth animations and status updates
+- **Add Your Lead**: Create 1 personal lead to test the full workflow
+- **Edit Restrictions**: Demo leads are read-only, yours are fully editable
+
 ## 💾 Data Storage
 
 StageWize stores all data locally in your browser using `localStorage`. This means:
@@ -96,7 +119,7 @@ StageWize stores all data locally in your browser using `localStorage`. This mea
 - ✅ **Instant performance** - no API calls or loading
 - ✅ **Privacy-first** - your data never leaves your device
 - ⚠️ **Device-specific** - data doesn't sync across browsers/devices
-- ⚠️ **Backup responsibility** - use CSV export for backups
+- ⚠️ **Demo resets** - demo data clears on page refresh
 
 ## 📊 Lead Data Fields
 
@@ -173,6 +196,7 @@ npm run build
 ## 🎪 MVP Limitations
 
 This is an MVP focused on core functionality:
+- **Demo mode active** - 1 user lead maximum, demo data resets
 - **No user authentication** - single-user local storage
 - **No backend integration** - purely client-side
 - **No data sync** - device-specific storage

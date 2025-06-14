@@ -93,7 +93,28 @@
   }
   
   .drop-zone {
-    background: rgba(0, 128, 255, 0.1);
-    border: 2px dashed #0080FF;
+    background: rgba(0, 128, 255, 0.1) !important;
+    border: 2px dashed #0080FF !important;
   }
+  
+  /* Utility classes to ensure they exist */
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+}
+
+/* Ensure core utilities work if Tailwind fails to load */
+@layer utilities {
+  .bg-dark-bg { background-color: #0a0a0a; }
+  .bg-card-bg { background-color: #1a1a1a; }
+  .bg-electric-blue { background-color: #0080FF; }
+  .bg-electric-yellow { background-color: #FFFF00; }
+  .text-electric-blue { color: #0080FF; }
+  .text-electric-yellow { color: #FFFF00; }
+  .border-border-gray { border-color: #2a2a2a; }
+  .font-anton { font-family: 'Anton', sans-serif; }
+  .font-montserrat { font-family: 'Montserrat', sans-serif; }
 } 

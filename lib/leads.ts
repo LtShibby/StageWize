@@ -28,7 +28,7 @@ export const generateLeadId = (): string => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2)
 }
 
-export const exportLeadsToCSV = (leads: Lead[]): void => {
+export const exportLeadsToCSV = (leads: Lead[], isDemoMode: boolean = true): void => {
   const headers = [
     'Name',
     'Email',
@@ -41,8 +41,21 @@ export const exportLeadsToCSV = (leads: Lead[]): void => {
     'Updated At'
   ]
   
-  const csvContent = [
-    headers.join(','),
+  let csvContent = [headers.join(',')]
+  
+  // Add demo banner if in demo mode
+  if (isDemoMode) {
+    csvContent.unshift(
+      '"=== STAGEWIZE DEMO EXPORT ==="',
+      '"This is demo data from StageWize"',
+      '"Contact us for the full version: matt@wozwize.com"',
+      '"Data is limited to 1 lead in demo mode"',
+      '""'
+    )
+  }
+  
+  // Add lead data
+  csvContent.push(
     ...leads.map(lead => [
       `"${lead.name}"`,
       `"${lead.email}"`,
@@ -54,15 +67,28 @@ export const exportLeadsToCSV = (leads: Lead[]): void => {
       `"${lead.createdAt}"`,
       `"${lead.updatedAt}"`
     ].join(','))
-  ].join('\n')
+  )
   
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' })
+  // Add footer in demo mode
+  if (isDemoMode) {
+    csvContent.push(
+      '""',
+      '"Want unlimited leads? Upgrade to StageWize Pro!"',
+      '"Visit: stagewize.com | Email: matt@wozwize.com"'
+    )
+  }
+  
+  const finalContent = csvContent.join('\n')
+  const blob = new Blob([finalContent], { type: 'text/csv;charset=utf-8;' })
   const link = document.createElement('a')
   
   if (link.download !== undefined) {
     const url = URL.createObjectURL(blob)
     link.setAttribute('href', url)
-    link.setAttribute('download', `stagewize-leads-${new Date().toISOString().split('T')[0]}.csv`)
+    const filename = isDemoMode 
+      ? `stagewize-demo-${new Date().toISOString().split('T')[0]}.csv`
+      : `stagewize-leads-${new Date().toISOString().split('T')[0]}.csv`
+    link.setAttribute('download', filename)
     link.style.visibility = 'hidden'
     document.body.appendChild(link)
     link.click()

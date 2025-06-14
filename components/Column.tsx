@@ -10,6 +10,7 @@ interface ColumnProps {
   title: string
   leads: Lead[]
   onEditLead: (lead: Lead) => void
+  isOver?: boolean
 }
 
 const columnColors = {
@@ -28,12 +29,12 @@ const columnBgColors = {
   'Lost': 'bg-red-500/10',
 }
 
-export default function Column({ id, title, leads, onEditLead }: ColumnProps) {
-  const { setNodeRef, isOver } = useDroppable({ id })
+export default function Column({ id, title, leads, onEditLead, isOver = false }: ColumnProps) {
+  const { setNodeRef } = useDroppable({ id })
   
   return (
     <div className="flex-1 min-w-[280px] max-w-[350px]">
-      <div className={`border-t-4 ${columnColors[id]} bg-card-bg rounded-lg`}>
+      <div className={`border-t-4 ${columnColors[id]} bg-card-bg rounded-lg shadow-lg`}>
         <div className="p-4 border-b border-border-gray">
           <div className="flex items-center justify-between">
             <h2 className="font-semibold text-white">{title}</h2>
@@ -46,7 +47,7 @@ export default function Column({ id, title, leads, onEditLead }: ColumnProps) {
         <div
           ref={setNodeRef}
           className={`
-            min-h-[500px] p-4 transition-colors duration-200
+            min-h-[500px] p-4 transition-all duration-200
             ${isOver ? 'drop-zone' : ''}
             ${isOver ? columnBgColors[id] : ''}
           `}
@@ -62,8 +63,9 @@ export default function Column({ id, title, leads, onEditLead }: ColumnProps) {
               ))
             ) : (
               <div className="text-center text-gray-500 mt-8">
-                <p>No leads in this stage</p>
-                <p className="text-sm mt-1">Drag leads here or add new ones</p>
+                <p className="text-lg">📋</p>
+                <p className="text-sm">No leads in this stage</p>
+                <p className="text-xs mt-1 text-gray-600">Drag leads here or add new ones</p>
               </div>
             )}
           </SortableContext>
