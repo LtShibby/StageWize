@@ -15,9 +15,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Social Media',
     notes: 'Found us through LinkedIn. Interested in our automation tools for their growing team.',
     status: 'New',
-    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
-    updatedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
-    statusChangedAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 1 day in New
+    createdAt: '2025-06-13T10:30:00.000Z', // Created 1 day ago
+    updatedAt: '2025-06-13T10:30:00.000Z',
+    statusChangedAt: '2025-06-13T10:30:00.000Z', // 1 day in New
   },
   {
     id: 'demo-lead-new-2',
@@ -28,9 +28,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Website',
     notes: 'Downloaded our pricing guide. Small design agency looking for client management solution.',
     status: 'New',
-    createdAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours ago
-    updatedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(),
-    statusChangedAt: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours in New
+    createdAt: '2025-06-14T04:30:00.000Z', // Created 6 hours ago
+    updatedAt: '2025-06-14T04:30:00.000Z',
+    statusChangedAt: '2025-06-14T04:30:00.000Z', // 6 hours in New
   },
   {
     id: 'demo-lead-new-3',
@@ -41,9 +41,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Referral',
     notes: 'Referred by existing customer. Early-stage startup, budget-conscious but interested.',
     status: 'New',
-    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
-    updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
-    statusChangedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours in New
+    createdAt: '2025-06-14T08:30:00.000Z', // Created 2 hours ago
+    updatedAt: '2025-06-14T08:30:00.000Z',
+    statusChangedAt: '2025-06-14T08:30:00.000Z', // 2 hours in New
   },
 
   // Contacted (2 leads)
@@ -56,9 +56,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Website',
     notes: 'Initial call completed. Interested in enterprise solution. Scheduled follow-up for next week.',
     status: 'Contacted',
-    createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
-    updatedAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString(), // 12 hours ago
-    statusChangedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days in Contacted
+    createdAt: '2025-06-11T10:30:00.000Z', // Created 3 days ago
+    updatedAt: '2025-06-13T22:30:00.000Z', // Updated 12 hours ago
+    statusChangedAt: '2025-06-12T10:30:00.000Z', // 2 days in Contacted
   },
   {
     id: 'demo-lead-contacted-2',
@@ -69,9 +69,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Cold Call',
     notes: 'Positive initial conversation. Wants to see demo next Tuesday. Team of 8 people.',
     status: 'Contacted',
-    createdAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
-    updatedAt: new Date(Date.now() - 18 * 60 * 60 * 1000).toISOString(), // 18 hours ago
-    statusChangedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000).toISOString(), // 4 days in Contacted
+    createdAt: '2025-06-09T10:30:00.000Z', // Created 5 days ago
+    updatedAt: '2025-06-13T16:30:00.000Z', // Updated 18 hours ago
+    statusChangedAt: '2025-06-10T10:30:00.000Z', // 4 days in Contacted
   },
 
   // Follow-Up (4 leads - most active stage)
@@ -84,9 +84,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Referral',
     notes: 'Proposal sent. Waiting for internal review. Budget approved, just need final sign-off from CEO.',
     status: 'Follow-Up',
-    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
-    updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(), // 2 days ago
-    statusChangedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days in Follow-Up
+    createdAt: '2025-06-07T10:30:00.000Z', // Created 7 days ago
+    updatedAt: '2025-06-12T10:30:00.000Z', // Updated 2 days ago
+    statusChangedAt: '2025-06-09T10:30:00.000Z', // 5 days in Follow-Up
   },
   {
     id: 'demo-lead-followup-2',
@@ -97,9 +97,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Trade Show',
     notes: 'Demo completed. Comparing with 2 other solutions. Decision expected by end of month.',
     status: 'Follow-Up',
-    createdAt: new Date(Date.now() - 12 * 24 * 60 * 60 * 1000).toISOString(), // 12 days ago
-    updatedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days ago
-    statusChangedAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(), // 8 days in Follow-Up
+    createdAt: '2025-06-04T10:30:00.000Z', // Created 10 days ago
+    updatedAt: '2025-06-11T10:30:00.000Z', // Updated 3 days ago
+    statusChangedAt: '2025-06-06T10:30:00.000Z', // 8 days in Follow-Up
   },
   {
     id: 'demo-lead-followup-3',
@@ -110,9 +110,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Website',
     notes: 'Requested custom pricing for 15-person team. Sent proposal yesterday. Very interested.',
     status: 'Follow-Up',
-    createdAt: new Date(Date.now() - 9 * 24 * 60 * 60 * 1000).toISOString(), // 9 days ago
-    updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
-    statusChangedAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days in Follow-Up
+    createdAt: '2025-06-05T10:30:00.000Z', // Created 9 days ago
+    updatedAt: '2025-06-13T10:30:00.000Z', // Updated 1 day ago
+    statusChangedAt: '2025-06-11T10:30:00.000Z', // 3 days in Follow-Up
   },
   {
     id: 'demo-lead-followup-4',
@@ -123,9 +123,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Social Media',
     notes: 'Trial user for 2 weeks. Loves the interface. Discussing team plan upgrade.',
     status: 'Follow-Up',
-    createdAt: new Date(Date.now() - 15 * 24 * 60 * 60 * 1000).toISOString(), // 15 days ago
-    updatedAt: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(), // 4 hours ago
-    statusChangedAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days in Follow-Up
+    createdAt: '2025-06-06T10:30:00.000Z', // Created 8 days ago
+    updatedAt: '2025-06-14T06:30:00.000Z', // Updated 4 hours ago
+    statusChangedAt: '2025-06-04T10:30:00.000Z', // 10 days in Follow-Up
   },
 
   // Won (2 leads)
@@ -138,9 +138,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Trade Show',
     notes: 'Contract signed! 12-month agreement for premium package. Implementation starts next month.',
     status: 'Won',
-    createdAt: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(), // 2 weeks ago
-    updatedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day ago
-    statusChangedAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // 1 day in Won
+    createdAt: '2025-06-08T10:30:00.000Z', // Created 6 days ago
+    updatedAt: '2025-06-13T10:30:00.000Z', // Updated 1 day ago
+    statusChangedAt: '2025-06-13T10:30:00.000Z', // 1 day in Won
   },
   {
     id: 'demo-lead-won-2',
@@ -151,9 +151,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Referral',
     notes: 'Closed! Annual subscription for team of 12. Very happy with onboarding process.',
     status: 'Won',
-    createdAt: new Date(Date.now() - 21 * 24 * 60 * 60 * 1000).toISOString(), // 3 weeks ago
-    updatedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 1 week ago
-    statusChangedAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(), // 7 days in Won
+    createdAt: '2025-06-05T10:30:00.000Z', // Created 9 days ago
+    updatedAt: '2025-06-07T10:30:00.000Z', // Updated 7 days ago
+    statusChangedAt: '2025-06-07T10:30:00.000Z', // 7 days in Won
   },
 
   // Lost (1 lead)
@@ -166,9 +166,9 @@ const getSampleDemoLeads = (): Lead[] => [
     leadSource: 'Cold Call',
     notes: 'Went with competitor due to price. Keep for future when budget increases.',
     status: 'Lost',
-    createdAt: new Date(Date.now() - 10 * 24 * 60 * 60 * 1000).toISOString(), // 10 days ago
-    updatedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days ago
-    statusChangedAt: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(), // 5 days in Lost
+    createdAt: '2025-06-08T10:30:00.000Z', // Created 6 days ago
+    updatedAt: '2025-06-09T10:30:00.000Z', // Updated 5 days ago
+    statusChangedAt: '2025-06-09T10:30:00.000Z', // 5 days in Lost
   },
 ]
 

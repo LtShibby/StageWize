@@ -22,11 +22,23 @@ const statusColors: Record<string, string> = {
 
 // Calculate days in current status
 const getDaysInStatus = (statusChangedAt: string): number => {
-  const statusDate = new Date(statusChangedAt)
-  const now = new Date()
-  const diffTime = Math.abs(now.getTime() - statusDate.getTime())
-  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-  return diffDays
+  try {
+    const statusDate = new Date(statusChangedAt)
+    const now = new Date()
+    
+    // Check if dates are valid
+    if (isNaN(statusDate.getTime()) || isNaN(now.getTime())) {
+      return 0
+    }
+    
+    const diffTime = Math.abs(now.getTime() - statusDate.getTime())
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24))
+    
+    return Math.max(0, diffDays)
+  } catch (error) {
+    console.warn('Error calculating days in status:', error)
+    return 0
+  }
 }
 
 // Format days for display
