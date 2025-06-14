@@ -10,10 +10,10 @@ import LeadForm from '@/components/LeadForm'
 
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [editingLead, setEditingLead] = useState<Lead | null>(null)
+  const [editingLead, setEditingLead] = useState<Lead | undefined>(undefined)
   
   const handleAddLead = () => {
-    setEditingLead(null)
+    setEditingLead(undefined)
     setIsModalOpen(true)
   }
   
@@ -24,7 +24,7 @@ export default function Home() {
   
   const handleCloseModal = () => {
     setIsModalOpen(false)
-    setEditingLead(null)
+    setEditingLead(undefined)
   }
   
   return (
