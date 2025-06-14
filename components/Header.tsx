@@ -1,6 +1,7 @@
 'use client'
 
-import { Download, Plus, Lock } from 'lucide-react'
+import Image from 'next/image'
+import { Plus, Download } from 'lucide-react'
 import { useLeads } from '@/store/useLeads'
 import { exportLeadsToCSV } from '@/lib/leads'
 
@@ -10,84 +11,53 @@ interface HeaderProps {
 
 export default function Header({ onAddLead }: HeaderProps) {
   const { leads, canAddLead, isDemoMode } = useLeads()
-  const canAdd = canAddLead()
-  
-  // Separate demo and user leads
-  const demoLeads = leads.filter(lead => lead.id.startsWith('demo-lead-'))
-  const userLeads = leads.filter(lead => !lead.id.startsWith('demo-lead-'))
-  
+
   const handleExport = () => {
-    if (isDemoMode && leads.length === 0) {
-      return // No export in demo mode with no data
-    }
     exportLeadsToCSV(leads, isDemoMode)
   }
-  
-  const handleAddClick = () => {
-    if (canAdd) {
-      onAddLead()
-    }
-  }
-  
+
   return (
-    <header className="bg-card-bg border-b border-border-gray p-4 lg:p-6">
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-anton text-xl">SW</span>
-            </div>
-            <div>
-              <h1 
-                className="text-2xl lg:text-3xl font-anton text-white glitch-text" 
-                data-text="StageWize"
-              >
-                StageWize
-              </h1>
-              <p className="text-gray-400 text-sm">
-                Visual Lead Pipeline {isDemoMode && <span className="text-yellow-400">• Demo Mode</span>}
-              </p>
-            </div>
+    <div className="bg-zinc-800 border-b border-zinc-700 p-4 rounded-t-xl">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Image
+            src="/images/logoIcon.png"
+            alt="StageWize"
+            width={32}
+            height={32}
+            className="h-8 w-8"
+          />
+          <div>
+            <h1 className="text-xl font-anton text-white">StageWize Demo</h1>
+            <p className="text-sm text-zinc-400">Visual Lead Management</p>
           </div>
         </div>
         
-        <div className="flex items-center space-x-3">
-          <div className="hidden sm:block text-sm text-gray-400">
-            {isDemoMode ? (
-              <div className="text-right">
-                <div>{demoLeads.length} demo leads • {userLeads.length}/1 your leads</div>
-                <div className="text-xs text-yellow-400">Try dragging the demo leads!</div>
-              </div>
-            ) : (
-              `${leads.length} lead${leads.length !== 1 ? 's' : ''} total`
-            )}
-          </div>
-          
+        <div className="flex items-center gap-3">
           <button
             onClick={handleExport}
-            className="flex items-center space-x-2 px-4 py-2 bg-yellow-500 text-black rounded-lg hover:bg-yellow-400 transition-colors font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 px-4 py-2 bg-zinc-700 text-white rounded-lg hover:bg-zinc-600 transition-colors"
             disabled={leads.length === 0}
-            title={isDemoMode ? "Export demo data (limited)" : "Export all leads to CSV"}
           >
             <Download size={16} />
             <span className="hidden sm:inline">Export CSV</span>
           </button>
           
           <button
-            onClick={handleAddClick}
-            className={`flex items-center space-x-2 px-4 py-2 rounded-lg transition-colors font-medium ${
-              canAdd 
-                ? 'bg-blue-600 text-white hover:bg-blue-700 card-glow' 
-                : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+            onClick={onAddLead}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+              canAddLead()
+                ? 'bg-electric-blue text-white hover:bg-blue-700'
+                : 'bg-zinc-600 text-zinc-400 cursor-not-allowed'
             }`}
-            disabled={!canAdd}
-            title={canAdd ? "Add new lead" : "Demo limit reached - upgrade for unlimited leads"}
+            disabled={!canAddLead()}
+            title={canAddLead() ? "Add new lead" : "Demo limit reached"}
           >
-            {canAdd ? <Plus size={16} /> : <Lock size={16} />}
-            <span>{canAdd ? 'Add Lead' : 'Locked'}</span>
+            <Plus size={16} />
+            <span className="hidden sm:inline">Add Lead</span>
           </button>
         </div>
       </div>
-    </header>
+    </div>
   )
 } 

@@ -71,6 +71,7 @@ interface LeadsStore {
   leads: Lead[]
   isLoading: boolean
   isDemoMode: boolean
+  hasShownDemoNotification: boolean
   
   // Actions
   loadLeads: () => void
@@ -88,6 +89,7 @@ export const useLeads = create<LeadsStore>((set, get) => ({
   leads: [],
   isLoading: false,
   isDemoMode: true, // Demo mode is always active
+  hasShownDemoNotification: false,
   
   loadLeads: () => {
     set({ isLoading: true })
@@ -98,13 +100,16 @@ export const useLeads = create<LeadsStore>((set, get) => ({
         const sampleLeads = getSampleDemoLeads()
         set({ leads: sampleLeads, isLoading: false })
         
-        // Show demo notification
-        setTimeout(() => {
-          toast('🎭 Demo Mode: Try dragging leads between stages! You can add 1 more lead.', {
-            duration: 6000,
-            icon: '🎭',
-          })
-        }, 2000)
+        // Show demo notification only once
+        if (!get().hasShownDemoNotification) {
+          set({ hasShownDemoNotification: true })
+          setTimeout(() => {
+            toast('🎭 Demo Mode: Try dragging leads between stages! You can add 1 more lead.', {
+              duration: 6000,
+              icon: '🎭',
+            })
+          }, 1000)
+        }
         return
       }
       
@@ -258,7 +263,7 @@ export const useLeads = create<LeadsStore>((set, get) => ({
   
   clearDemoData: () => {
     localStorage.removeItem('stagewize-leads')
-    set({ leads: [] })
+    set({ leads: [], hasShownDemoNotification: false })
     toast('Demo data cleared', { icon: '🗑️' })
   },
 })) 
