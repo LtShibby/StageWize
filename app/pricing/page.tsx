@@ -54,7 +54,6 @@ export default function PricingPage() {
         features: [
           '1 user',
           '50 lead records total',
-          'Cloud persistence (Supabase)',
           'Basic kanban',
           'CSV export'
         ],
