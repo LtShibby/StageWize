@@ -1,10 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { Edit, Trash2, Mail, Phone, Building, Lock, Clock } from 'lucide-react'
-import { Lead } from '@/types'
+import { Lead, LeadStatus } from '@/types'
 import { useLeads } from '@/store/useLeads'
 
 interface LeadCardProps {
@@ -49,11 +49,24 @@ const formatDaysInStatus = (days: number): string => {
 }
 
 export default function LeadCard({ lead, onEdit }: LeadCardProps) {
-  const { deleteLead, canEditLead } = useLeads()
+  const { deleteLead, canEditLead, moveLead } = useLeads()
   const [showActions, setShowActions] = useState(false)
+  const [showMobileActions, setShowMobileActions] = useState(false)
   const isEditable = canEditLead(lead.id)
   const isDemoLead = lead.id.startsWith('demo-lead-')
   const daysInStatus = getDaysInStatus(lead.statusChangedAt)
+  
+  // Define all available columns for mobile navigation
+  const allColumns: { id: LeadStatus; title: string; color: string }[] = [
+    { id: 'New', title: 'New Leads', color: 'bg-blue-600' },
+    { id: 'Contacted', title: 'Contacted', color: 'bg-yellow-600' },
+    { id: 'Follow-Up', title: 'Follow-Up', color: 'bg-orange-600' },
+    { id: 'Won', title: 'Won', color: 'bg-green-600' },
+    { id: 'Lost', title: 'Lost', color: 'bg-red-600' },
+  ]
+  
+  // Get available columns (exclude current status)
+  const availableColumns = allColumns.filter(col => col.id !== lead.status)
   
   const {
     attributes,
@@ -90,6 +103,35 @@ export default function LeadCard({ lead, onEdit }: LeadCardProps) {
     }
   }
   
+  const handleMoveToColumn = (newStatus: LeadStatus) => (e: React.MouseEvent) => {
+    e.stopPropagation()
+    moveLead(lead.id, newStatus)
+    setShowMobileActions(false)
+  }
+  
+  const handleMobileCardTap = () => {
+    setShowMobileActions(!showMobileActions)
+  }
+  
+  // Close mobile actions when another card is tapped or when clicking outside
+  useEffect(() => {
+    const handleClickOutside = () => {
+      setShowMobileActions(false)
+    }
+    
+    if (showMobileActions) {
+      // Small delay to prevent immediate closing when opening
+      const timer = setTimeout(() => {
+        document.addEventListener('click', handleClickOutside)
+      }, 100)
+      
+      return () => {
+        clearTimeout(timer)
+        document.removeEventListener('click', handleClickOutside)
+      }
+    }
+  }, [showMobileActions])
+  
   return (
     <div
       ref={setNodeRef}
@@ -99,9 +141,11 @@ export default function LeadCard({ lead, onEdit }: LeadCardProps) {
         rounded-lg p-4 mb-3 cursor-grab hover:shadow-lg transition-all duration-200 
         group relative ${isDemoLead ? 'bg-gradient-to-br from-card-bg to-gray-800' : ''}
         ${isDragging ? 'z-50' : ''}
+        ${showMobileActions ? 'ring-2 ring-blue-500' : ''}
       `}
       onMouseEnter={() => setShowActions(true)}
       onMouseLeave={() => setShowActions(false)}
+      onClick={handleMobileCardTap}
       {...attributes}
       {...listeners}
     >
@@ -192,10 +236,39 @@ export default function LeadCard({ lead, onEdit }: LeadCardProps) {
       
       <div className="mt-2 text-xs text-gray-500 flex justify-between items-center">
         <span>{new Date(lead.createdAt).toLocaleDateString()}</span>
-        {isDemoLead && (
-          <span className="text-blue-400 font-medium">Drag me!</span>
+        {isDemoLead && !showMobileActions && (
+          <span className="text-blue-400 font-medium md:hidden">Tap to move!</span>
+        )}
+        {isDemoLead && !showMobileActions && (
+          <span className="text-blue-400 font-medium hidden md:inline">Drag me!</span>
         )}
       </div>
+      
+      {/* Mobile Move Buttons */}
+      {showMobileActions && (
+        <div className="mt-3 md:hidden">
+          <div className="text-center mb-2">
+            <span className="text-xs text-gray-400 font-medium">Move to:</span>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+            {availableColumns.map((column) => (
+              <button
+                key={column.id}
+                onClick={handleMoveToColumn(column.id)}
+                className={`flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium transition-colors ${column.color} text-white hover:opacity-80`}
+              >
+                <span>{column.title}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+      
+      {showMobileActions && (
+        <div className="mt-2 text-center md:hidden">
+          <span className="text-xs text-gray-400">Tap card again to close</span>
+        </div>
+      )}
     </div>
   )
 } 

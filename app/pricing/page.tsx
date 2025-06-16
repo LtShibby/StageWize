@@ -49,7 +49,6 @@ export default function PricingPage() {
         name: 'Starter Stage',
         price: '$19',
         period: '/mo',
-        yearlyPrice: '$190/yr',
         description: 'For individual professionals',
         icon: <Star className="text-blue-400" size={24} />,
         features: [
@@ -68,7 +67,6 @@ export default function PricingPage() {
         name: 'Growth Stage',
         price: '$75',
         period: '/mo',
-        yearlyPrice: '$750/yr',
         description: 'For small teams ready to grow',
         icon: <Star className="text-yellow-400" size={24} />,
         features: [
@@ -87,7 +85,6 @@ export default function PricingPage() {
         name: 'Momentum Stage',
         price: '$130',
         period: '/mo',
-        yearlyPrice: '$1300/yr',
         description: 'For scaling teams who mean business',
         icon: <Crown className="text-purple-400" size={24} />,
         features: [
@@ -139,14 +136,7 @@ export default function PricingPage() {
           <p className="text-xl text-gray-400 mb-8 max-w-3xl mx-auto">
             Choose the plan that fits your team size and needs. All plans include our core visual pipeline features.
           </p>
-          <div className="inline-flex items-center bg-card-bg rounded-lg p-1 mb-12">
-            <button className="px-4 py-2 bg-blue-600 text-white rounded-md font-medium">
-              Monthly
-            </button>
-            <button className="px-4 py-2 text-gray-400 hover:text-white transition-colors">
-              Yearly (Save 17%)
-            </button>
-          </div>
+
         </div>
       </section>
 
@@ -183,11 +173,7 @@ export default function PricingPage() {
                     <span className="text-gray-400">{plan.period}</span>
                   </div>
 
-                  {plan.yearlyPrice && (
-                    <div className="text-sm text-green-400 mb-2">
-                      or {plan.yearlyPrice} (save 17%)
-                    </div>
-                  )}
+
 
                   {plan.setupFee && (
                     <div className="text-sm text-gray-400">
